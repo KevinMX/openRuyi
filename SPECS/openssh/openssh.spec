@@ -91,7 +91,6 @@ BuildRequires:  libX11-devel
 
 Recommends:     p11-kit
 
-Requires:       /sbin/nologin
 Requires:       openssl
 %if %{with selinux}
 Requires:       libselinux
@@ -134,7 +133,6 @@ helper program used for host-based authentication disabled by default.
 %package        server
 Summary:        An open source SSH server daemon
 Requires:       openssh = %{version}-%{release}
-Requires(pre):  /usr/sbin/useradd
 Requires:       pam
 #Requires:       crypto-policies
 
