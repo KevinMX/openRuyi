@@ -13,6 +13,9 @@ repos:
     -   id: end-of-file-fixer
         files: \.spec$
     -   id: check-added-large-files
+    -   id: check-merge-conflict
+    -   id: check-case-conflict
+    -   id: check-toml
 # TODO:
 # -   repo: https://github.com/fsfe/reuse-tool
 #     rev: v6.1.0
