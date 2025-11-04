@@ -1,4 +1,9 @@
-# Copyright (c) 2025 openruyi
+# SPDX-FileCopyrightText: (C) 2025 Institute of Software, Chinese Academy of Sciences (ISCAS)
+# SPDX-FileCopyrightText: (C) 2025 openRuyi Project Contributors
+# SPDX-FileContributor: Dingli Zhang <dingli@iscas.ac.cn>
+#
+# SPDX-License-Identifier: MulanPSL-2.0
+
 %global cups_serverbin %{_exec_prefix}/lib/cups
 
 Name:           cups
