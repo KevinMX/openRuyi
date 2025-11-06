@@ -2,6 +2,7 @@
 # SPDX-FileCopyrightText: (C) 2025 openRuyi Project Contributors
 # SPDX-FileContributor: Zheng Junjie <zhengjunjie@iscas.ac.cn>
 # SPDX-FileContributor: misaka00251 <liuxin@iscas.ac.cn>
+# SPDX-FileContributor: Jingkun Zheng <zhengjingkun@iscas.ac.cn>
 #
 # SPDX-License-Identifier: MulanPSL-2.0
 
@@ -63,7 +64,7 @@ autoreconf -fiv
 %{_mandir}/man1/pstree.1*
 %{_mandir}/man1/prtstat.1*
 %{_mandir}/man1/pslog.1*
-#{_bindir}/peekfd
+%{_bindir}/peekfd
 %exclude %{_mandir}/man1/peekfd.1*
 
 %changelog
