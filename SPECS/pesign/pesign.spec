@@ -2,6 +2,7 @@
 # SPDX-FileCopyrightText: (C) 2025 openRuyi Project Contributors
 # SPDX-FileContributor: Zheng Junjie <zhengjunjie@iscas.ac.cn>
 # SPDX-FileContributor: yyjeqhc <1772413353@qq.com>
+# SPDX-FileContributor: Jingkun Zheng <zhengjingkun@iscas.ac.cn>
 #
 # SPDX-License-Identifier: MulanPSL-2.0
 
@@ -55,6 +56,7 @@ rm -rf %{buildroot}%{_libdir}/libdpe*
 mkdir -p %{buildroot}%{_rpmmacrodir}
 mv %{buildroot}%{_sysconfdir}/rpm/macros.pesign %{buildroot}%{_rpmmacrodir}/
 rmdir %{buildroot}%{_sysconfdir}/rpm
+rm -f %{buildroot}/usr/share/doc/pesign-%{version}/COPYING
 
 install -d -m 0755 %{buildroot}%{python3_sitelib}/mockbuild/plugins/
 install -m 0755 %{SOURCE1} %{buildroot}%{python3_sitelib}/mockbuild/plugins/
