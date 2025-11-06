@@ -261,6 +261,10 @@ install -Dm644 %{SOURCE20} %{buildroot}%{_udevrulesdir}/60-rfkill.rules
 %{_bindir}/taskset
 %{_bindir}/uname26
 %{_bindir}/unshare
+%ifarch x86_64
+%{_bindir}/i386
+%{_bindir}/x86_64
+%endif
 %attr(4755, root, root) %{_bindir}/su
 %attr(4755, root, root) %{_bindir}/mount
 %attr(4755, root, root) %{_bindir}/umount
