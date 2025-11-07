@@ -7,13 +7,13 @@
 # ignore the explicit bash requires from the kernel mod scripts
 %define __requires_exclude ^/bin/bash$
 Name:           rpm-config-openruyi
-Version:        20250821
+Version:        20251029
 Release:        %autorelease
 Summary:        specific RPM configuration files
 License:        GPL-2.0-or-later
 Group:          System/Packages
 URL:            https://git.oerv.ac.cn/openruyi/rpm-config-openruyi
-Source:         https://git.oerv.ac.cn/openruyi/rpm-config-openruyi/archive/%{version}.tar.gz
+Source:         https://git.oerv.ac.cn/openRuyi/rpm-config-openruyi/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 BuildRequires:  gzip
 #!BuildIgnore:  rpm-config-openruyi
 # RPM owns the directories we need
