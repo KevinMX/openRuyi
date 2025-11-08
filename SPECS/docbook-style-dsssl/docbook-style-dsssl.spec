@@ -16,6 +16,9 @@ Source0:        http://prdownloads.sourceforge.net/docbook/docbook-dsssl-%{versi
 Source1:        %{name}.Makefile
 BuildArch:      noarch
 
+# https://github.com/docbook/xslt10-stylesheets/issues/176
+Patch0:         0001-docbook-style-xsl-non-recursive-string-subst.patch
+
 BuildRequires:  perl
 BuildRequires:  make
 
