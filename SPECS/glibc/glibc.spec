@@ -404,6 +404,10 @@ export STRIP_KEEP_SYMTAB=*.so*
 # Install base glibc
 %make_install install_root=%{buildroot} -C cc-base
 
+cd cc-base
+make %{?_smp_mflags} %{?make_output_sync} install_root=%{buildroot} localedata/install-locale-files
+cd ..
+
 rm -rf %{buildroot}%{_datadir}/locale/en_GB/LC_MESSAGES
 %find_lang libc --generate-subpackages
 
@@ -643,9 +647,17 @@ exit 0
 %files locale-base
 %defattr(-,root,root)
 %{_datadir}/locale/locale.alias
+%dir %{_prefix}/lib/locale
+%{_prefix}/lib/locale/C.utf8
+%{_prefix}/lib/locale/en_US.utf8
+%{_prefix}/lib/locale/zh_CN.utf8
 
 %files locale
 %defattr(-,root,root)
+%{_prefix}/lib/locale
+%exclude %{_prefix}/lib/locale/C.utf8
+%exclude %{_prefix}/lib/locale/en_US.utf8
+%exclude %{_prefix}/lib/locale/zh_CN.utf8
 
 %files devel
 %defattr(-,root,root)
