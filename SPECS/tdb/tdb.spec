@@ -2,6 +2,7 @@
 # SPDX-FileCopyrightText: (C) 2025 openRuyi Project Contributors
 # SPDX-FileContributor: Zheng Junjie <zhengjunjie@iscas.ac.cn>
 # SPDX-FileContributor: yyjeqhc <1772413353@qq.com>
+# SPDX-FileContributor: misaka00251 <liuxin@iscas.ac.cn>
 #
 # SPDX-License-Identifier: MulanPSL-2.0
 
@@ -17,9 +18,9 @@ Source:         https://samba.org/ftp/tdb/tdb-%{version}.tar.gz
 BuildSystem:    autotools
 
 BuildOption(conf):    --disable-rpath --bundled-libraries=NONE --builtin-libraries=replace
-BuildOption(conf):    --disable-python --without-gettext
+BuildOption(conf):    --without-gettext
 
-BuildRequires:  python3
+BuildRequires:  python3-devel
 
 %description
 The Tdb library implements a trivial database that is used by Samba and
@@ -42,6 +43,20 @@ Requires:       tdb-tools = %{version}
 This package contains the header files, pkg-config file, and development
 documentation needed to build applications that use the Tdb library.
 
+%package     -n python-tdb
+Summary:        Python 3 bindings for the Tdb library
+Requires:       %{name} = %{version}
+Provides:       python3-tdb
+%python_provide python3-tdb
+
+%description -n python-tdb
+Python bindings for libtdb
+
+%conf -p
+# https://gitlab.com/ita1024/waf/-/issues/2472
+export PYTHONARCHDIR=%{python3_sitearch}
+
+%ldconfig_scriptlets
 
 %files
 %license LICENSE
@@ -58,6 +73,10 @@ documentation needed to build applications that use the Tdb library.
 %{_includedir}/tdb.h
 %{_libdir}/libtdb.so
 %{_libdir}/pkgconfig/tdb.pc
+
+%files -n python-tdb
+%{python3_sitearch}/tdb.cpython*.so
+%{python3_sitearch}/_tdb_text.py
 
 %changelog
 %{?autochangelog}
