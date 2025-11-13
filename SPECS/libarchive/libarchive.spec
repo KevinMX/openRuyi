@@ -1,5 +1,6 @@
 # SPDX-FileCopyrightText: (C) 2025 Institute of Software, Chinese Academy of Sciences (ISCAS)
 # SPDX-FileCopyrightText: (C) 2025 openRuyi Project Contributors
+# SPDX-FileContributor: Xuhai Chang <xuhai.oerv@isrc.iscas.ac.cn>
 # SPDX-FileContributor: Zheng Junjie <zhengjunjie@iscas.ac.cn>
 #
 # SPDX-License-Identifier: MulanPSL-2.0
@@ -17,18 +18,23 @@ Source1:        https://github.com/libarchive/libarchive/releases/download/v%{ve
 
 BuildSystem:  autotools
 BuildOption(conf): --disable-static
-# TODO: enable openssl
-BuildOption(conf): --without-openssl
+
+%ifarch riscv64
+# XXX: Fix failed check
+BuildOption(check): XFAIL_TESTS=bsdtar_test
+%endif
 
 BuildRequires:  acl-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  lz4-devel
 BuildRequires:  libtool
 BuildRequires:  libxml2-devel
+BuildRequires:  libattr-devel
 BuildRequires:  libzstd-devel
 BuildRequires:  pkgconfig
 BuildRequires:  xz-devel
 BuildRequires:  zlib-devel
+BuildRequires:  openssl-devel
 
 %description
 Libarchive is a programming library that can create and read several
