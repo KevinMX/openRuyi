@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!--
+SPDX-FileCopyrightText: (C) 2025 Institute of Software, Chinese Academy of Sciences (ISCAS)
+SPDX-FileCopyrightText: (C) 2025 openRuyi Project Contributors
+
+SPDX-License-Identifier: MulanPSL-2.0
+-->
+
+<pbuild>
+  <preset name="riscv64" default="">
+    <repo>https://vine.oerv.ac.cn/OpenRuyi:/Factory:/Bootstrap/riscv64/</repo>
+    <arch>riscv64</arch>
+  </preset>
+  <preset name="x86_64" default="">
+   <repo>https://vine.oerv.ac.cn/OpenRuyi:/Factory:/Bootstrap/x86_64/</repo>
+   <arch>x86_64</arch>
+  </preset>
+</pbuild>

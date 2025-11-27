@@ -1,0 +1,68 @@
+# SPDX-FileCopyrightText: (C) 2025 Institute of Software, Chinese Academy of Sciences (ISCAS)
+# SPDX-FileCopyrightText: (C) 2025 openRuyi Project Contributors
+# SPDX-FileContributor: Zheng Junjie <zhengjunjie@iscas.ac.cn>
+#
+# SPDX-License-Identifier: MulanPSL-2.0
+
+name: build test
+
+permissions:
+  contents: read
+  pull-requests: read
+
+on:
+  pull_request:
+    branches: [main, ci-test]
+    types: [opened, synchronize, closed]
+    paths:
+     - 'SPECS/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: startsWith(github.repository, 'openRuyiOS')
+    concurrency:
+      group: pr-build-check
+      cancel-in-progress: true
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: cache
+      id:   cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          SPECS/.pbuild
+          SPECS/_build.x86_64
+        key: ${{ runner.os }}-${{ hashFiles('.github/build/_config') }}
+        restore-keys: |
+          ${{ runner.os }}-
+    - name: setup osc repo
+      run: |
+        echo "deb http://download.opensuse.org/repositories/openSUSE:/Tools/xUbuntu_24.04/ /" | sudo tee /etc/apt/sources.list.d/obs.list
+        wget -qO - http://download.opensuse.org/repositories/openSUSE:/Tools/xUbuntu_24.04/Release.key | sudo apt-key add -
+    - name: install tools
+      run:  sudo apt update && sudo apt install osc obs-build libwww-perl libxml-parser-perl -y
+    - uses: actions/github-script@v7
+      id: changed_files
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        debug: true
+        script: |
+          const pr_number = context.payload.pull_request.number;
+          const { data: files}  = await github.rest.pulls.listFiles({owner: context.repo.owner, repo: context.repo.repo, pull_number: pr_number, per_page: 100
+          });
+          const targetDir = "SPECS/";
+          const filtered = files
+            .map(f => f.filename)
+            .filter(name => name.startsWith(targetDir));
+          console.log("Filtered files:", filtered);
+          core.setOutput("changed_files", filtered.join("\n"));
+          const dirs = filtered.map(f => f.split("/")[1]).filter(Boolean);
+          const packages = [...new Set(dirs)];
+          console.log("change packages:", packages);
+          const fs = require('fs')
+          fs.appendFileSync('./.github/build/_config', packages.map(x => `BuildFlags: onlybuild:${x}`).join("\n"));
+    - name: build
+      run: (cp .github/build/* SPECS && cd SPECS && (sudo pbuild --vm-type=chroot --preset x86_64 --showlog --root=/tmp/b || (sudo pbuild --preset x86_64 --result && exit 1)))

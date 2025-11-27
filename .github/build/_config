@@ -1,0 +1,166 @@
+# SPDX-FileCopyrightText: (C) 2025 Institute of Software, Chinese Academy of Sciences (ISCAS)
+# SPDX-FileCopyrightText: (C) 2025 openRuyi Project Contributors
+#
+# SPDX-License-Identifier: MulanPSL-2.0
+
+Type: spec
+Repotype: rpm-md sha512:rsyncable:zchunk:compression-zstd:filelists-ex
+OptFlags: riscv64 -O2 -g -march=rva23u64
+OptFlags: x86_64 -O2 -g
+
+Release: <CI_CNT>.<B_CNT>%%{?dist}
+Substitute: distribution-release system-release
+
+Required: rpm-build gcc15
+
+# use zlib, not zlib-ng
+Prefer: zlib-devel
+# use ninja, not samurai-ninja
+Prefer: ninja
+Prefer: shadow
+# use openssl, not libressl
+Prefer: openssl-devel
+# use libevent, not libev-event
+Prefer: libevent
+Prefer: glib-devel glib
+
+Prefer: python3-libs python3-devel
+Prefer: python3  python3-packaging  python3-pip python3-wheel
+#Prefer: python3-Cython
+
+#Prefer: p11-kit libnetfilter_conntrack glib libbpf nspr-devel util-macros cyrus-sasl 
+#Prefer: libsodium glib-devel kmod-devel dbus-broker-allow-restart libpwquality
+Preinstall: systemd-sysusers systemd-shared setup
+Preinstall: gcc gcc-c++ expat ncurses filesystem popt
+Preinstall: acl pam librpmbuild10 libdw1 libxml2 gawk  libattr1 
+Preinstall: linux-headers
+Preinstall: audit
+Preinstall: rpm-build file rpm glibc libxml2 libeconf
+Preinstall: gmp
+
+Preinstall: libselinux pcre2 util-linux libcap libz1 lua bzip2 libgcrypt
+Preinstall: bash coreutils cpio rpm-config-openruyi 
+Preinstall: zstd xz libgomp1 libgpg-error gzip tar patch 
+Preinstall: lz4
+
+
+Support: glibc-gconv-modules-extra
+Support: systemd-rpm-macros
+Support: mold
+Support: perl file 
+Support: gcc cpp  gcc15-c++ libstdc++6-devel-gcc15
+Support: libasan8 libitm1 libtsan2 libubsan1
+Support: gcc15-PIE gcc15 cpp15 liblsan0 
+Support: liblsan0 libatomic1 libstdc++6 libgcc_s1
+Support: rpm-config-openruyi attr coreutils 
+Support: gcc sed xz grep patch diffutils bash findutils m4 
+Support: systemd-sysusers
+Support: perl-rpm-packaging
+Support: make lz4 xz libcap bzip2 gawk tzdata binutils 
+# gcc15-c++ 
+
+
+Keep: systemd-rpm-macros systemd-udev systemd-devel
+Keep: mold libtasn1 libmount libblkid systemd-sysusers
+Keep: systemd-shared systemd-libs
+Keep: libseccomp
+Keep: ncurses-devel make findutils elfutils libxml2
+Keep: gawk sed gcc15 libgcc_s1 binutils perl python3 glibc libxcrypt gcc cpp-15
+Keep: grep ncurses libatomic1 
+Keep: libstdc++6 libgcc_s1 gmp libgfortran5 
+Keep: libasan8 libgomp1 libubsan1 libitm1 liblsan0 liblsan0 libtsan2
+Keep: libelf1 isl
+Keep: libxcrypt mpc mpfr gcc-c++ gcc15-c++ perl-rpm-packaging 
+Keep: cpp15 pkgconf pkgconf-m4 attr popt pam libdw1 libarchive
+Keep: libunistring libstdc++6 libstdc++6-devel-gcc15 libstdc++6-locale 
+Keep: libstdc++6-pp libtsan2 libubsan1 libasan8 gcc15-c++ 
+Keep: gcc15-PIE gcc15 cpp15 
+Keep: libgcc_s1 libgfortran5 liblsan0 liblsan0
+Keep: libisl23 libmpc3 libattr1 libgdbm6 gmp libxcrypt libxcrypt-static libxcrypt-devel
+Keep: mpfr-devel isl-devel libmpfr6 mpfr-devel gmp-c++ gmp-devel gmp debugedit
+Keep: python-setuptools-wheel libffi python3-setuptools python3-wheel pam pam-devel
+Keep: glib glib-devel ccache gpm jitterentropy openssl
+Keep: sqlite sqlite-devel python3-libs python3
+Keep: gettext-tools
+Keep: cmake m4 diffutils attr texinfo
+Keep: gcc15-fortran gcc15-go libgo24
+
+
+Order:  mold:binutils
+Order:  chkconfig:mold
+Order:  filesystem:cmake-filesystem
+Order:  filesystem:linux-headers
+Order:  filesystem:systemd-rpm-macros
+
+Order: filesystem:glibc
+Order: filesystem:vim-filesystem
+Order: filesystem:emacs-filesystem
+Order: filesystem:acl
+Order: filesystem:libacl1
+Order: filesystem:attr
+Order: filesystem:tcl
+Order: filesystem:libgcc
+Order: xz:rpm-build
+
+Order: filesystem:ncurses
+Order: filesystem:coreutils
+Order: filesystem:unzip
+Order: filesystem:system-user-root
+Order: filesystem:pkgconf-m4
+Order: filesystem:permctl
+Order: filesystem:lua
+Order: filesystem:bzip2
+Order: glibc:patch
+Order: filesystem:perl-rpm-packaging
+Order: filesystem:terminfo-base
+Order: filesystem:filesystem
+
+Order: filesystem:perl
+
+Ignore: gettext:texinfo
+Ignore: p11-kit:python3
+Ignore: dbus:dbus-broker
+Ignore: pciutils:pciutils-ids
+Ignore: postfix:iproute2
+Ignore: gpm:systemd
+Ignore: openssh:systemd
+Ignore: cronie:systemd
+Ignore: cyrus-sasl:krb5-devel
+Ignore: pesign:systemd
+Ignore: texlive-filesystem:cron
+
+Macros:
+%build_ldflags %{nil}
+%_empty_manifest_terminate_build 0
+%__spec_check_pre exit 0
+%_unpackaged_files_terminate_build 1
+%_lto_cflags %{nil}
+%dist .or
+%_vendor openruyi
+%ext_info .gz
+
+
+%bcond_override_default_systemd 1
+%_with_systemd 1
+%ext_man .gz
+%gcc_version 15
+
+%__python /usr/bin/python3
+%bcond_override_default_acl_tests 1
+%__systemd_sysusers /usr/bin/systemd-sysusers
+%autorelease 1%{?dist}
+%_vendor_bug_url https://git.oerv.ac.cn/openRuyi/openruyi-repo/issues
+%autochangelog %{nil}
+%_vendor openruyi
+%_vendor_name openRuyi
+%_vendor_url https://git.oerv.ac.cn/openRuyi/openruyi-repo
+:Macros
+
+
+
+FileProvides: /usr/bin/passwd busybox-adduser shadow
+FileProvides: /usr/bin/useradd shadow
+FileProvides: /usr/bin/userdel shadow
+FileProvides: /usr/bin/usermod shadow
+FileProvides: /usr/bin/dbus-daemon dbus-tools
+FileProvides: /usr/bin/xsltproc libxslt
