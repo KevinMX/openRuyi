@@ -7,7 +7,7 @@
 %global srcname pytest-mock
 
 Name:           python-%{srcname}
-Version:        3.14.0
+Version:        3.15.1
 Release:        %autorelease
 Summary:        Thin-wrapper around the mock package for easier use with py.test
 License:        MIT
