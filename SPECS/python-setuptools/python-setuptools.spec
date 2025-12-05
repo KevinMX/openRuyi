@@ -21,7 +21,7 @@ Name:           python-%{srcname}-bootstrap
 %else
 Name:           python-%{srcname}
 %endif
-Version:        78.1.1
+Version:        80.9.0
 Release:        %autorelease
 Summary:        Easily build and distribute Python packages
 License:        MIT AND Apache-2.0 AND (BSD-2-Clause OR Apache-2.0) AND Python-2.0.1 AND LGPL-3.0-only
