@@ -1,4 +1,3 @@
-# Example buildsystem for autotools
 %buildsystem_autotools_conf() %configure \\\
                               --disable-silent-rules \\\
                               --disable-rpath \\\
@@ -6,4 +5,5 @@
                               %*
 %buildsystem_autotools_build() %make_build %*
 %buildsystem_autotools_install() %make_install %*
-%buildsystem_autotools_check() echo Not checking, sorry!
+%_test_target check
+%buildsystem_autotools_check() %make_build %_test_target %*

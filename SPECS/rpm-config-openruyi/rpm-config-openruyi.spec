@@ -7,7 +7,7 @@
 # ignore the explicit bash requires from the kernel mod scripts
 %define __requires_exclude ^/bin/bash$
 Name:           rpm-config-openruyi
-Version:        20251203
+Version:        20251216
 Release:        %autorelease
 Summary:        specific RPM configuration files
 License:        GPL-2.0-or-later
