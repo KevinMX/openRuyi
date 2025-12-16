@@ -46,6 +46,9 @@ Header files and libraries for developing with libhd library.
 # No configure.
 %conf
 
+# No tests
+%check
+
 %files
 %doc *.md MAINTAINER
 %license COPYING
