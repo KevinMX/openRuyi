@@ -54,7 +54,7 @@ Provides:       bundled(simclist) = 1.5
 OpenSC provides a set of libraries and utilities to work with smart cards.
 
 %package        libs
-Requires:       pcsc-lite-libs%{?_isa}
+Requires:       pcsc-lite%{?_isa}
 Summary:        OpenSC libraries
 
 %description    libs
