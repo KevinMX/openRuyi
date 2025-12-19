@@ -5,6 +5,8 @@
 #
 # SPDX-License-Identifier: MulanPSL-2.0
 
+%global _test_target test
+
 # These are for SQLite sources
 %define year 2025
 %define download_version 3500400
