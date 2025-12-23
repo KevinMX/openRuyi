@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: (C) 2025 Institute of Software, Chinese Academy of Sciences (ISCAS)
 # SPDX-FileCopyrightText: (C) 2025 openRuyi Project Contributors
 # SPDX-FileContributor: Zheng Junjie <zhengjunjie@iscas.ac.cn>
+# SPDX-FileContributor: yyjeqhc <jialin.oerv@isrc.iscas.ac.cn>
 #
 # SPDX-License-Identifier: MulanPSL-2.0
 
@@ -13,23 +14,25 @@ License:        GPL-2.0-or-later
 URL:            https://www.doxygen.nl/
 #!RemoteAsset
 Source0:        https://www.doxygen.nl/files/doxygen-%{version}.src.tar.gz
+BuildSystem:    cmake
+
 Patch1:         doxygen-no-lowercase-man-names.patch
 Patch2:         reproducible.patch
+
+BuildOption(conf):  -Dbuild_doc=OFF
+BuildOption(conf):  -Dbuild_search=OFF
+BuildOption(conf):  -Dbuild_wizard=OFF
+BuildOption(conf):  -DCMAKE_EXE_LINKER_FLAGS="-Wl,--as-needed -Wl,-z,relro,-z,now"
+BuildOption(conf):  -DCMAKE_MODULE_LINKER_FLAGS="-Wl,--as-needed -Wl,-z,relro,-z,now"
+BuildOption(conf):  -DCMAKE_SHARED_LINKER_FLAGS="-Wl,--as-needed -Wl,-z,relro,-z,now"
+BuildOption(conf):  -DBUILD_SHARED_LIBS=OFF
+BuildOption(conf):  -DBUILD_STATIC_LIBS=ON
+
 BuildRequires:  bison
 BuildRequires:  cmake >= 3.14
 BuildRequires:  flex
 BuildRequires:  gcc-c++
 BuildRequires:  python3
-BuildSystem:    cmake
-
-BuildOption(conf): -Dbuild_doc=OFF
-BuildOption(conf): -Dbuild_search=OFF
-BuildOption(conf): -Dbuild_wizard=OFF
-BuildOption(conf): -DCMAKE_EXE_LINKER_FLAGS="-Wl,--as-needed -Wl,-z,relro,-z,now"
-BuildOption(conf): -DCMAKE_MODULE_LINKER_FLAGS="-Wl,--as-needed -Wl,-z,relro,-z,now"
-BuildOption(conf): -DCMAKE_SHARED_LINKER_FLAGS="-Wl,--as-needed -Wl,-z,relro,-z,now"
-BuildOption(conf): -DBUILD_SHARED_LIBS=OFF
-BuildOption(conf): -DBUILD_STATIC_LIBS=ON
 
 %description
 Doxygen is the de facto standard tool for generating documentation
