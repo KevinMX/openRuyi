@@ -11,12 +11,12 @@ Release:        %autorelease
 Summary:        Debuginfo extraction
 License:        GPL-3.0-or-later
 URL:            https://www.sourceware.org/debugedit
+VCS:            git:https://sourceware.org/git/debugedit.git
 #!RemoteAsset
 Source0:        https://sourceware.org/ftp/%{name}/%{version}/%{name}-%{version}.tar.xz
 #!RemoteAsset
 Source1:        https://sourceware.org/ftp/%{name}/%{version}/%{name}-%{version}.tar.xz.sig
 Source2:        %{name}.keyring
-
 BuildSystem:    autotools
 
 BuildOption(conf):  CC="gcc -gz=none" CXX="g++ -gz=none"
