@@ -41,6 +41,7 @@ BuildRequires:  brotli-devel
 # trousers-devel for TPM 1.2 is optional, can be added if available
 # BuildRequires:  trousers-devel
 BuildRequires:  unbound-devel
+BuildRequires:  ca-certificates-mozilla
 
 %description
 GnuTLS is a secure communications library implementing the SSL, TLS and DTLS
