@@ -5,6 +5,8 @@
 #
 # SPDX-License-Identifier: MulanPSL-2.0
 
+%global _test_target test
+
 Name:           libsemanage
 Version:        3.9
 Release:        %autorelease
@@ -14,11 +16,14 @@ URL:            https://github.com/SELinuxProject/selinux/wiki/Releases
 #!RemoteAsset
 Source0:        https://github.com/SELinuxProject/selinux/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1:        semanage.conf
+# TODO: We haven't package secilc yet. Workaround.
+Patch0:         fix-test-failure-with-secilc.patch
 BuildSystem:    autotools
 
 BuildRequires:  audit-devel bison flex bzip2-devel libselinux-devel libsepol-devel
 BuildRequires:  pkgconfig make gcc
 BuildRequires:  python3 python3-devel python3-setuptools swig
+BuildRequires:  cunit-devel
 
 
 BuildOption(build): CFLAGS="%{optflags} -fno-semantic-interposition"

@@ -1,0 +1,82 @@
+From b4dff18c54fd666100d10581ce9215c8d5cbde93 Mon Sep 17 00:00:00 2001
+From: gengqihu <gengqihu1@huawei.com>
+Date: Tue, 11 May 2021 04:28:37 -0400
+Subject: [PATCH] fix test failure with secilc
+
+There's no secilc here. The SELinux CIL Compiler is a compiler that
+converts the CIL language as described on the CIL design wiki into a
+kernel binary policy file.
+This patch deletes the testcode related to secilc.
+
+---
+ tests/Makefile            | 12 ++++++------
+ tests/libsemanage-tests.c | 16 ----------------
+ 2 files changed, 6 insertions(+), 22 deletions(-)
+
+diff --git a/tests/Makefile b/tests/Makefile
+index 241ff17..cfedb76 100644
+--- a/tests/Makefile
++++ b/tests/Makefile
+@@ -1,6 +1,5 @@
+ # Add your test source files here:
+-SOURCES = $(sort $(wildcard *.c))
+-CILS = $(sort $(wildcard *.cil))
++SOURCES = $(sort $(wildcard libsemanage-tests.c test_other.c test_semanage_store.c test_utilities.c utilities.c))
+ 
+ ###########################################################################
+ 
+@@ -10,18 +9,14 @@ override CFLAGS += -I../src -I../include
+ override LDLIBS += -lcunit -lbz2 -laudit -lselinux -lsepol
+ 
+ OBJECTS = $(SOURCES:.c=.o)
+-POLICIES = $(CILS:.cil=.policy)
+ 
+-all: $(EXECUTABLE) $(POLICIES)
++all: $(EXECUTABLE)
+ 
+ $(EXECUTABLE): $(OBJECTS) ../src/libsemanage.a
+ 	$(CC) $(LDFLAGS) -o $@ $^ $(LDLIBS)
+ 
+-%.policy: %.cil
+-	../../secilc/secilc $*.cil -o $*.policy -f /dev/null
+-
+ clean distclean:
+-	rm -rf $(OBJECTS) $(POLICIES) $(EXECUTABLE)
++	rm -rf $(OBJECTS) $(EXECUTABLE)
+ 
+ test: all
+ 	./$(EXECUTABLE)
+diff --git a/tests/libsemanage-tests.c b/tests/libsemanage-tests.c
+index 1d41a03..6e3f4db 100644
+--- a/tests/libsemanage-tests.c
++++ b/tests/libsemanage-tests.c
+@@ -21,14 +21,6 @@
+ 
+ #include "test_semanage_store.h"
+ #include "test_utilities.h"
+-#include "test_handle.h"
+-#include "test_bool.h"
+-#include "test_fcontext.h"
+-#include "test_iface.h"
+-#include "test_ibendport.h"
+-#include "test_node.h"
+-#include "test_port.h"
+-#include "test_user.h"
+ #include "test_other.h"
+ 
+ #include <CUnit/Basic.h>
+@@ -72,14 +64,6 @@ static bool do_tests(int interactive, int verbose)
+ 
+ 	DECLARE_SUITE(semanage_store);
+ 	DECLARE_SUITE(semanage_utilities);
+-	DECLARE_SUITE(handle);
+-	DECLARE_SUITE(boolean);
+-	DECLARE_SUITE(fcontext);
+-	DECLARE_SUITE(iface);
+-	DECLARE_SUITE(ibendport);
+-	DECLARE_SUITE(node);
+-	DECLARE_SUITE(port);
+-	DECLARE_SUITE(user);
+ 	DECLARE_SUITE(other);
+ 
+ 	if (verbose)
