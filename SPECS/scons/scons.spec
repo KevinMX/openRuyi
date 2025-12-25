@@ -5,16 +5,17 @@
 # SPDX-License-Identifier: MulanPSL-2.0
 
 Name:           scons
-Version:        4.9.1
+Version:        4.10.1
 Release:        %autorelease
 Summary:        A modern build tool, a replacement for Make
 License:        MIT
 URL:            https://www.scons.org/
+VCS:            git:https://github.com/SCons/scons
 #!RemoteAsset
-Source:         https://sourceforge.net/projects/scons/files/scons/%{version}/SCons-%{version}.tar.gz
+Source0:        https://sourceforge.net/projects/scons/files/scons/%{version}/SCons-%{version}.tar.gz
 BuildSystem:    pyproject
 
-BuildOption(install): -l SCons  +auto
+BuildOption(install): -l SCons +auto
 
 BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3-devel
@@ -26,11 +27,9 @@ BuildRequires:  python3dist(pip)
 %py_provides    scons
 
 %description
-
 SCons is a software construction tool. It is an improved, cross-platform
 substitute for the classic Make utility with integrated functionality similar
 to Autoconf/Automake and compiler caches such as ccache.
-
 
 %generate_buildrequires
 %pyproject_buildrequires
