@@ -5,10 +5,10 @@
 #
 # SPDX-License-Identifier: MulanPSL-2.0
 
-%global gitver 48.0
+%global gitver 50.0
 %global gitnum 0
 
-%global obs_packaging_commit bac875451133f6b968f5487fe2322d9c1a46a8ef
+%global obs_packaging_commit 485cd738c50d7be666e2d15ebb57cf029fcc3dd4
 
 Name:           cloud-hypervisor
 Url:            https://github.com/cloud-hypervisor/cloud-hypervisor
