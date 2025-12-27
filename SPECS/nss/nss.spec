@@ -77,7 +77,7 @@ includedir=%{_includedir}/nss3
 
 Name: NSS-UTIL
 Description: Network Security Services Utility Library
-Version: 3.94
+Version: 4.37
 Requires: nspr
 Libs: -L\${libdir} -lnssutil3
 Cflags: -I\${includedir}
@@ -92,7 +92,7 @@ includedir=%{_includedir}/nss3
 Name: NSS
 Description: Network Security Services
 Version: 3.115
-Requires: nspr
+Requires: nspr,nss-util
 Libs: -L\${libdir} -lssl3 -lsmime3 -lnss3
 Cflags: -I\${includedir}
 EOF
