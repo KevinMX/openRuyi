@@ -1,0 +1,34 @@
+From 5d0bbad1cbfc18b521a264132060f6c0d99480ee Mon Sep 17 00:00:00 2001
+From: misaka00251 <liuxin@iscas.ac.cn>
+Date: Tue, 6 Jan 2026 14:11:30 +0800
+Subject: [PATCH] Allow empty default GOPROXY
+
+---
+ cmd/testscript/testdata/env_var_with_go.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/cmd/testscript/testdata/env_var_with_go.txt b/cmd/testscript/testdata/env_var_with_go.txt
+index aa23111..fd770c7 100644
+--- a/cmd/testscript/testdata/env_var_with_go.txt
++++ b/cmd/testscript/testdata/env_var_with_go.txt
+@@ -13,7 +13,7 @@ unquote withproxy.txt
+ testscript -v noproxy.txt
+ stdout ^BANANA=$
+ stdout '^GOPATH=\$WORK[/\\]\.gopath'$
+-stdout ^GOPROXY=https://proxy.golang.org,direct$
++stdout '^GOPROXY=(https://proxy.golang.org,direct)?$'
+ ! stderr .+
+ 
+ env BANANA=banana
+@@ -25,7 +25,7 @@ env GOPROXY=
+ testscript -v noproxy.txt
+ stdout ^BANANA=$
+ stdout '^GOPATH=\$WORK[/\\]\.gopath'$
+-stdout ^GOPROXY=https://proxy.golang.org,direct$
++stdout '^GOPROXY=(https://proxy.golang.org,direct)?$'
+ ! stderr .+
+ 
+ # no GOPROXY, no pass-through, with proxy
+-- 
+2.52.0
+
