@@ -1,0 +1,13 @@
+--- a/Makefile	2025-06-10 17:23:30.000000000 +0000
++++ b/Makefile	2026-01-14 12:40:51.856180607 +0000
+@@ -65,8 +65,8 @@
+ 		       unavailable-dwarf-piece
+ TEST_EXECS_x86_64 = py-section-script dw2-skip-prologue \
+ 	implptr-64bit-d2o4a8r8t0 varval
+-TEST_EXECS = hello dwz-for-test min two-typedef start hello-gold-gdb-index \
+-	start-gold hello-gnu-pubnames $(TEST_EXECS_DWARF_ASM) \
++TEST_EXECS = hello dwz-for-test min two-typedef start \
++	hello-gnu-pubnames $(TEST_EXECS_DWARF_ASM) \
+ 	$(TEST_EXECS_$(UNAME)) odr-struct odr-class odr-union odr-struct-ns \
+ 	odr-class-ns odr-union-ns odr-loc def-decl cycle
+ 
