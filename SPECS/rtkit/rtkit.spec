@@ -1,5 +1,5 @@
-# SPDX-FileCopyrightText: (C) 2025 Institute of Software, Chinese Academy of Sciences (ISCAS)
-# SPDX-FileCopyrightText: (C) 2025 openRuyi Project Contributors
+# SPDX-FileCopyrightText: (C) 2025, 2026 Institute of Software, Chinese Academy of Sciences (ISCAS)
+# SPDX-FileCopyrightText: (C) 2025, 2026 openRuyi Project Contributors
 # SPDX-FileContributor: yyjeqhc <jialin.oerv@isrc.iscas.ac.cn>
 # SPDX-FileContributor: misaka00251 <liuxin@iscas.ac.cn>
 #
@@ -18,6 +18,8 @@ Source1:        rtkit.sysusers
 BuildSystem:    autotools
 
 BuildOption(conf):  --with-systemdsystemunitdir=%{_unitdir}
+# Avoid false positive -Werror=format-security.
+BuildOption(conf):  CFLAGS='%{build_cflags} -Wno-error=format-security'
 
 BuildRequires:  make
 BuildRequires:  pkgconfig(libsystemd)
