@@ -2,6 +2,7 @@
 # SPDX-FileCopyrightText: (C) 2025 openRuyi Project Contributors
 # SPDX-FileContributor: Zheng Junjie <zhengjunjie@iscas.ac.cn>
 # SPDX-FileContributor: ayostl <yao_xp@yeah.net>
+# SPDX-FileContributor: misaka00251 <liuxin@iscas.ac.cn>
 #
 # SPDX-License-Identifier: MulanPSL-2.0
 
@@ -13,10 +14,11 @@ Version:        1.5.7
 Release:        %autorelease
 Summary:        A library for compressing and decompressing 3D geometric meshes and point clouds
 License:        Apache-2.0
-URL:            https://github.com/google/%{name}
+URL:            https://github.com/google/draco
 #!RemoteAsset
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildSystem:    cmake
+
 # Downstream-only patch that unconditionally links a system copy of gtest,
 # rather than expecting a git submodule as upstream prefers (and gtest upstream
 # would recommend).
