@@ -41,7 +41,7 @@ HarfBuzz is an implementation of the OpenType Layout engine.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
