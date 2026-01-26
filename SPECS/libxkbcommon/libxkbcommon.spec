@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: (C) 2025 Institute of Software, Chinese Academy of Sciences (ISCAS)
 # SPDX-FileCopyrightText: (C) 2025 openRuyi Project Contributors
 # SPDX-FileContributor: yyjeqhc <1772413353@qq.com>
+# SPDX-FileContributor: misaka00251 <liuxin@iscas.ac.cn>
 #
 # SPDX-License-Identifier: MulanPSL-2.0
 
@@ -46,7 +47,7 @@ client toolkits, window systems, and other system applications.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
 Development files for %{name}.
@@ -68,8 +69,8 @@ X11 support library for %{name}.
 
 %package        x11-devel
 Summary:        Development files for %{name}-x11
-Requires:       %{name}-x11 = %{version}-%{release}
-Requires:       %{name}-devel = %{version}-%{release}
+Requires:       %{name}-x11%{?_isa} = %{version}-%{release}
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
 
 %description    x11-devel
 Development files for %{name}-x11.
