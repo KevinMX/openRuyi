@@ -2,6 +2,7 @@
 # SPDX-FileCopyrightText: (C) 2025, 2026 openRuyi Project Contributors
 # SPDX-FileContributor: Mahno <bestwow2014@gmail.com>
 # SPDX-FileContributor: Zheng Junjie <zhengjunjie@iscas.ac.cn>
+# SPDX-FileContributor: misaka00251 <liuxin@iscas.ac.cn>
 #
 # SPDX-License-Identifier: MulanPSL-2.0
 
@@ -9,15 +10,7 @@ Name:           libmodulemd
 Version:        2.15.2
 Release:        %autorelease
 Summary:        Module metadata manipulation library
-# COPYING:      MIT
-## not in any binary package
-# contrib/coverity-modeling.c:  GPL-2.0-or-later
-# contrib/release-tools/semver: GPL-3.0-only
-# modulemd/tests/test_data/f29.yaml:            Apache-2.0
-# modulemd/tests/test_data/f29-updates.yaml:    Apache-2.0
-# xml_specs/reduced/tests/good/module_stream_build_license.xml: MIT AND GPL-3.0-or-later
 License:        MIT
-SourceLicense:  %{license} AND GPL-3.0-only AND GPL-3.0-or-later AND GPL-2.0-or-later AND Apache-2.0
 URL:            https://github.com/fedora-modularity/libmodulemd
 #!RemoteAsset
 Source0:        %{url}/releases/download/%{version}/modulemd-%{version}.tar.xz
@@ -25,44 +18,51 @@ Source0:        %{url}/releases/download/%{version}/modulemd-%{version}.tar.xz
 Source1:        %{url}/releases/download/%{version}/modulemd-%{version}.tar.xz.asc
 # Key exported from Petr Pisar's keyring
 #Source2:        gpgkey-E3F42FCE156830A80358E6E94FD1AEC3365AF7BF.gpg
-Patch0:         0001-tests-Adapt-to-glib-2.87.0.patch
 BuildSystem:    meson
-BuildOption(conf): -Drpmio=enabled
-BuildOption(conf): -Dskip_introspection=false
-BuildOption(conf): -Dtest_installed_lib=false
-BuildOption(conf): -Dwith_docs=false
-BuildOption(conf): -Dwith_manpages=enabled
+
+Patch0:         0001-tests-Adapt-to-glib-2.87.0.patch
+
+BuildOption(conf):  -Drpmio=enabled
+BuildOption(conf):  -Dskip_introspection=false
+BuildOption(conf):  -Dtest_installed_lib=false
+BuildOption(conf):  -Dwith_docs=false
+BuildOption(conf):  -Dwith_manpages=enabled
 
 #BuildRequires:  gnupg2
 BuildRequires:  meson
-BuildRequires:  gcc gcc-c++
-BuildRequires:  pkgconfig(gobject-2.0) pkgconfig(gobject-introspection-1.0)
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
+BuildRequires:  pkgconfig(gobject-2.0)
+BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(yaml-0.1)
 # doc gen tool is disabled to make this pkg usable ASAP
 #BuildRequires:  pkgconfig(gtk-doc)
 #BuildRequires:  glib2-doc
-BuildRequires:  rpm-devel
-BuildRequires:  python3-devel python3-pygobject
+BuildRequires:  pkgconfig(rpm)
+BuildRequires:  pkgconfig(python3)
+BuildRequires:  python3-pygobject
 
 %description
 C library for manipulating module metadata files.
 See https://github.com/fedora-modularity/libmodulemd/blob/main/README.md for
 more details.
 
-%package -n python3-%{name}
-Summary:        Python 3 bindings for %{name}
-Requires:       %{name} = %{version}-%{release}
+%package     -n python-%{name}
+Summary:        Python bindings for %{name}
+Provides:       python3-%{name} = %{version}-%{release}
+%python_provide python3-%{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       python%{python3_pkgversion}-pygobject
-Requires:       python3-six
+Requires:       python-six
 
-%description -n python3-%{name}
-Python3 bindings for %{name}.
+%description -n python-%{name}
+Python bindings for %{name}.
 
-%package devel
+%package        devel
 Summary:        Development files for libmodulemd
 Requires:       libmodulemd
 
-%description devel
+%description    devel
 Development files for %{name}.
 
 %files
@@ -81,7 +81,7 @@ Development files for %{name}.
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/Modulemd-2.0.gir
 
-%files -n python3-%{name}
+%files -n python-%{name}
 %{python3_sitearch}/gi/overrides/
 
 %changelog
