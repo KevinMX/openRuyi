@@ -1,11 +1,11 @@
 # SPDX-FileCopyrightText: (C) 2025 Institute of Software, Chinese Academy of Sciences (ISCAS)
 # SPDX-FileCopyrightText: (C) 2025 openRuyi Project Contributors
 # SPDX-FileContributor: yyjeqhc <1772413353@qq.com>
+# SPDX-FileContributor: misaka00251 <liuxin@iscas.ac.cn>
 #
 # SPDX-License-Identifier: MulanPSL-2.0
 
 %bcond tests 0
-
 
 Name:           libinput
 Version:        1.30.0
@@ -13,6 +13,7 @@ Release:        %autorelease
 Summary:        Input device library
 License:        MIT
 URL:            http://www.freedesktop.org/wiki/Software/libinput/
+VCS:            git:https://gitlab.freedesktop.org/libinput/libinput.git
 #!RemoteAsset
 Source:         https://gitlab.freedesktop.org/libinput/libinput/-/archive/%{version}/libinput-%{version}.tar.bz2
 BuildSystem:    meson
@@ -20,7 +21,6 @@ BuildSystem:    meson
 BuildOption(conf):  -Ddebug-gui=false
 BuildOption(conf):  -Ddocumentation=false
 BuildOption(conf):  -Dudev-dir=%{_udevrulesdir}
-
 %if %{with tests}
 BuildOption(conf):  -Dtests=true
 BuildOption(conf):  -Dinstall-tests=true
@@ -65,7 +65,6 @@ The %{name}-utils package contains tools to debug hardware and analyze
 
 %prep -a
 %py3_shebang_fix $(grep -rIl '#!/usr/bin/.*python3' .)
-
 
 %check
 %if %{with tests}
