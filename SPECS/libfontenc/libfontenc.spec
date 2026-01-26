@@ -35,7 +35,7 @@ tools for handling fonts with different character set encodings.
 
 %package        devel
 Summary:        Development files for the X11 font encoding library
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
 The libfontenc library is used by the Xorg server and other X font
