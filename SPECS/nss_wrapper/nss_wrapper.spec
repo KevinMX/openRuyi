@@ -11,6 +11,7 @@ Release:        %autorelease
 Summary:        A wrapper for the user, group and hosts NSS API
 License:        BSD-3-Clause
 URL:            http://cwrap.org/
+VCS:            git:git://git.samba.org/nss_wrapper.git
 #!RemoteAsset
 Source0:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz
 #!RemoteAsset
