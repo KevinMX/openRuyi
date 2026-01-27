@@ -2,6 +2,7 @@
 # SPDX-FileCopyrightText: (C) 2025 openRuyi Project Contributors
 # SPDX-FileContributor: Zheng Junjie <zhengjunjie@iscas.ac.cn>
 # SPDX-FileContributor: yyjeqhc <jialin.oerv@isrc.iscas.ac.cn>
+# SPDX-FileContributor: misaka00251 <liuxin@iscas.ac.cn>
 #
 # SPDX-License-Identifier: MulanPSL-2.0
 
@@ -11,12 +12,13 @@ Release:        %autorelease
 Summary:        Netscape Portable Runtime libraries
 License:        MPL-2.0
 URL:            https://firefox-source-docs.mozilla.org/nspr/index.html
+VCS:            hg:https://hg.mozilla.org/projects/nspr
 #!RemoteAsset
 Source0:        https://ftp.mozilla.org/pub/nspr/releases/v4.37/src/%{name}-4.37.tar.gz#/%{name}-%{version}.tar.gz
 BuildSystem:    autotools
 
 # Use GCC atomic built-ins for x86/x86_64
-Patch:          0001-nspr-gcc-atomics.patch
+Patch0:         0001-nspr-gcc-atomics.patch
 
 BuildOption(conf):  --enable-64bit --enable-optimize --disable-debug
 BuildOption(conf):  --includedir=%{_includedir}/nspr
