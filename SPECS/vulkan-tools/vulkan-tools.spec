@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: (C) 2025 Institute of Software, Chinese Academy of Sciences (ISCAS)
 # SPDX-FileCopyrightText: (C) 2025 openRuyi Project Contributors
 # SPDX-FileContributor: yyjeqhc <1772413353@qq.com>
+# SPDX-FileContributor: misaka00251 <liuxin@iscas.ac.cn>
 #
 # SPDX-License-Identifier: MulanPSL-2.0
 
@@ -16,16 +17,16 @@ URL:            https://github.com/KhronosGroup/Vulkan-Tools
 Source0:        https://github.com/KhronosGroup/Vulkan-Tools/archive/refs/tags/v%{version}.tar.gz
 BuildSystem:    cmake
 
-BuildOption(conf): -DBUILD_WSI_WAYLAND_SUPPORT=ON
+BuildOption(conf):  -DBUILD_WSI_WAYLAND_SUPPORT=ON
 
 %if %{with x11}
-BuildOption(conf): -DBUILD_WSI_XCB_SUPPORT=ON
-BuildOption(conf): -DBUILD_WSI_XLIB_SUPPORT=ON
+BuildOption(conf):  -DBUILD_WSI_XCB_SUPPORT=ON
+BuildOption(conf):  -DBUILD_WSI_XLIB_SUPPORT=ON
 %else
-BuildOption(conf): -DBUILD_WSI_XCB_SUPPORT=OFF
-BuildOption(conf): -DBUILD_WSI_XLIB_SUPPORT=OFF
+BuildOption(conf):  -DBUILD_WSI_XCB_SUPPORT=OFF
+BuildOption(conf):  -DBUILD_WSI_XLIB_SUPPORT=OFF
 %endif
-BuildOption(conf): -DBUILD_CUBE=ON
+BuildOption(conf):  -DBUILD_CUBE=ON
 
 BuildRequires:  cmake
 BuildRequires:  gcc
