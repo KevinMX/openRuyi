@@ -2,6 +2,7 @@
 # SPDX-FileCopyrightText: (C) 2025 openRuyi Project Contributors
 # SPDX-FileContributor: Icenowy Zheng <uwu@icenowy.me>
 # SPDX-FileContributor: jingyupu <pujingyu@iscas.ac.cn>
+# SPDX-FileContributor: misaka00251 <liuxin@iscas.ac.cn>
 #
 # SPDX-License-Identifier: MulanPSL-2.0
 
@@ -11,7 +12,7 @@ Release:        %autorelease
 Summary:        Wayland base protocol library
 License:        MIT
 URL:            https://wayland.freedesktop.org/
-VCS:            https://gitlab.freedesktop.org/wayland/wayland
+VCS:            git:https://gitlab.freedesktop.org/wayland/wayland
 #!RemoteAsset
 Source:         https://gitlab.freedesktop.org/wayland/wayland/-/releases/%{version}/downloads/wayland-%{version}.tar.xz
 BuildSystem:    meson
@@ -38,12 +39,12 @@ Summary:        Wayland EGL backend library
 %description    egl
 This package contains the Wayland EGL backend library, libwayland-egl.
 
-%package devel
+%package        devel
 Summary:        Development files for Wayland
-Requires:       wayland = %{version}-%{release}
-Requires:       wayland-egl = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}%{?_isa}-egl = %{version}-%{release}
 
-%description devel
+%description    devel
 This package contains the headers, libraries and tools needed to develop
 Wayland-based applications, including the wayland-scanner tool.
 
