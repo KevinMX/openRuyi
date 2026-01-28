@@ -11,7 +11,6 @@ Release:        %autorelease
 Summary:        A set of system configuration and setup files
 License:        LicenseRef-openRuyi-Public-Domain
 URL:            https://src.fedoraproject.org/rpms/setup
-
 Source0:        aliases
 Source1:        bashrc
 Source2:        csh.cshrc
@@ -27,25 +26,24 @@ Source11:       profile
 Source12:       protocols
 Source13:       services
 Source14:       shells
-
 Source21:       lang.csh
 Source22:       lang.sh
-
 Source31:       COPYING
 Source32:       uidgid
 Source33:       setup.sysusers
 Source34:       uidgidlint
 Source35:       serviceslint
-
 BuildArch:      noarch
+
 BuildRequires:  bash
 BuildRequires:  tcsh
 BuildRequires:  perl-devel
 BuildRequires:  systemd-sysusers
 #systemd-rpm-macros: required to use _sysusersdir and _tmpfilesdir macro
 BuildRequires:  systemd-rpm-macros
+
 #require system release for saner dependency order
-Requires:     system-release
+Requires:       system-release
 
 %description
 The setup package contains a set of important system configuration and
