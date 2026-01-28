@@ -2,6 +2,7 @@
 # SPDX-FileCopyrightText: (C) 2025 openRuyi Project Contributors
 # SPDX-FileContributor: Yafen Fang <yafen@iscas.ac.cn>
 # SPDX-FileContributor: Zheng Junjie <zhengjunjie@iscas.ac.cn>
+# SPDX-FileContributor: misaka00251 <liuxin@iscas.ac.cn>
 #
 # SPDX-License-Identifier: MulanPSL-2.0
 
@@ -11,6 +12,7 @@ Release:        %autorelease
 Summary:        Linux USB utilities
 License:        GPL-2.0-or-later
 URL:            http://www.linux-usb.org/
+VCS:            git:https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usbutils.git
 #!RemoteAsset
 Source0:        https://www.kernel.org/pub/linux/utils/usb/usbutils/%{name}-%{version}.tar.xz
 #!RemoteAsset
@@ -20,8 +22,8 @@ BuildSystem:    meson
 
 BuildRequires:  meson
 BuildRequires:  gcc
-BuildRequires:  libusb-devel
-BuildRequires:  libudev-devel
+BuildRequires:  pkgconfig(libusb-1.0)
+BuildRequires:  pkgconfig(libudev)
 Requires:       hwdata
 
 %description
