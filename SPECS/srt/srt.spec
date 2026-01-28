@@ -31,7 +31,7 @@ BuildRequires:  make
 BuildRequires:  pkgconfig(gnutls)
 BuildRequires:  pkgconfig(nettle)
 BuildRequires:  pkgconfig(gmock)
-BuildRequires:  gtest-devel
+BuildRequires:  pkgconfig(gtest)
 
 %description
 Secure Reliable Transport (SRT) is an open source transport technology that
