@@ -6,12 +6,14 @@
 
 # avoid bootstrapping problem
 %bcond static 0
+
 Name:           xz
 Version:        5.8.1
 Release:        %autorelease
 Summary:        A Program for Compressing Files with the Lempel–Ziv–Markov algorithm
 License:        0BSD AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later
 URL:            https://tukaani.org/xz/
+VCS:            git:https://github.com/tukaani-project/xz
 #!RemoteAsset
 Source0:        https://github.com/tukaani-project/xz/releases/download/v%{version}/xz-%{version}.tar.xz
 #!RemoteAsset
@@ -20,18 +22,21 @@ Source1:        https://github.com/tukaani-project/xz/releases/download/v%{versi
 Source3:        https://tukaani.org/misc/lasse_collin_pubkey.txt#/xz.keyring
 Source4:        xznew
 Source5:        xznew.1
-BuildRequires:  pkgconfig
-Provides:       lzma = %{version}
-Obsoletes:      lzma < %{version}
-
 BuildSystem:    autotools
-BuildOption(conf): --with-pic
-BuildOption(conf): --docdir=%{_docdir}/%{name}
+
+BuildOption(conf):  --with-pic
+BuildOption(conf):  --docdir=%{_docdir}/%{name}
 %if %{with static}
-BuildOption(conf): --disable-shared
+BuildOption(conf):  --disable-shared
 %else
-BuildOption(conf): --disable-static
+BuildOption(conf):  --disable-static
 %endif
+
+BuildRequires:  pkgconfig
+
+Provides:       lzma = %{version}-%{release}
+Obsoletes:      lzma < %{version}-%{release}
+
 %description
 The xz command is a program for compressing files.
 * Average compression ratio of LZMA is about 30%% better than that of
@@ -45,26 +50,26 @@ The xz command is a program for compressing files.
   decompressing speed.
 * Very similar command line interface to what gzip and bzip2 have.
 
-%package devel
+%package        devel
 Summary:        Development package for the LZMA library
 License:        0BSD
-Requires:       %{name} = %{version}
-Provides:       lzma-devel = %{version}
-Obsoletes:      lzma-devel < %{version}
-Provides:       lzma-alpha-devel = %{version}
-Obsoletes:      lzma-alpha-devel < %{version}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Provides:       lzma-devel = %{version}-%{release}
+Obsoletes:      lzma-devel < %{version}-%{release}
+Provides:       lzma-alpha-devel = %{version}-%{release}
+Obsoletes:      lzma-alpha-devel < %{version}-%{release}
 
-%description devel
+%description    devel
 This package contains the header files and libraries needed for
 compiling programs using the LZMA library.
 
 %if %{with static}
-%package static
+%package        static
 Summary:        Static version of LZMA library
 License:        Public-Domain
-Requires:       xz-devel = %{version}
+Requires:       xz-devel = %{version}-%{release}
 
-%description static
+%description    static
 Static library for the LZMA library
 %endif
 
