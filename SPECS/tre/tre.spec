@@ -2,6 +2,7 @@
 # SPDX-FileCopyrightText: (C) 2025 openRuyi Project Contributors
 # SPDX-FileContributor: Zheng Junjie <zhengjunjie@iscas.ac.cn>
 # SPDX-FileContributor: yyjeqhc <1772413353@qq.com>
+# SPDX-FileContributor: misaka00251 <liuxin@iscas.ac.cn>
 #
 # SPDX-License-Identifier: MulanPSL-2.0
 
@@ -11,26 +12,27 @@ Release:        %autorelease
 Summary:        POSIX-compatible regexp library with approximate matching
 License:        BSD-3-Clause
 URL:            https://laurikari.net/tre/
+VCS:            git:https://github.com/laurikari/tre
 #!RemoteAsset
 Source:         https://github.com/laurikari/tre/releases/download/v%{version}/%{name}-%{version}.tar.gz
 BuildSystem:    autotools
 
+BuildOption(conf):  --disable-static
+BuildOption(conf):  --enable-shared
+
 # Tests require locale en_US.ISO-8859-1.
 BuildRequires:  glibc-locale
-
-BuildOption(conf): --disable-static
-BuildOption(conf): --enable-shared
 
 %description
 TRE is a POSIX-compatible regexp matching library with approximate
 (fuzzy) matching. This package contains the runtime library and the
 agrep utility.
 
-%package devel
+%package        devel
 Summary:        Development files for the TRE regex library
-Requires:       %{name} = %{version}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
-%description devel
+%description    devel
 This package contains the header files, pkg-config files, and documentation
 needed to develop applications that use the TRE library.
 
