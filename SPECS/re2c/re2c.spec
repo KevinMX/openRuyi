@@ -1,21 +1,23 @@
 # SPDX-FileCopyrightText: (C) 2025 Institute of Software, Chinese Academy of Sciences (ISCAS)
 # SPDX-FileCopyrightText: (C) 2025 openRuyi Project Contributors
 # SPDX-FileContributor: Zheng Junjie <zhengjunjie@iscas.ac.cn>
+# SPDX-FileContributor: misaka00251 <liuxin@iscas.ac.cn>
 #
 # SPDX-License-Identifier: MulanPSL-2.0
 
-Summary: Lexer generator for C/C++
-Name:    re2c
-Version: 4.3
-Release: %autorelease
-License: Public Domain
-URL:     https://re2c.org/
+Summary:        Lexer generator for C/C++
+Name:           re2c
+Version:        4.3
+Release:        %autorelease
+License:        LicenseRef-openRuyi-Public-Domain
+URL:            https://re2c.org/
+VCS:            git:https://github.com/skvadrik/re2c
 #!RemoteAsset
-Source:  https://github.com/skvadrik/re2c/releases/download/%{version}/re2c-%{version}.tar.xz
+Source:         https://github.com/skvadrik/re2c/releases/download/%{version}/re2c-%{version}.tar.xz
+BuildSystem:    autotools
 
-BuildSystem:   autotools
-BuildRequires: python3
-BuildRequires: gcc-c++
+BuildRequires:  python3
+BuildRequires:  gcc-c++
 
 %description
 re2c is a tool for writing very fast and very flexible scanners. Unlike any
