@@ -10,7 +10,7 @@ Release: <CI_CNT>.<B_CNT>%%{?dist}
 PublishFilter: .*-bootstrap.*
 
 # use zlib, not zlib-ng
-Prefer: zlib-devel libz1 pytest
+Prefer: zlib-devel zlib pytest
 # use ninja, not samurai-ninja
 Prefer: ninja
 Prefer: shadow
@@ -26,13 +26,13 @@ Keep: setup systemd
 Preinstall: systemd-sysusers
 Preinstall: setup
 Preinstall: gcc gcc-c++ expat ncurses filesystem popt
-Preinstall: acl pam librpmbuild10 libdw1 libxml2 gawk  libattr1 
+Preinstall: acl pam librpmbuild10 elfutils libxml2 gawk attr
 Preinstall: linux-headers
 Preinstall: audit
 Preinstall: rpm-build file rpm glibc libxml2 libeconf
 Preinstall: gmp
 
-Preinstall: libselinux pcre2 util-linux libcap libz1 lua bzip2 libgcrypt
+Preinstall: libselinux pcre2 util-linux libcap zlib lua bzip2 libgcrypt
 Preinstall: bash coreutils cpio rpm-config-openruyi 
 Preinstall: zstd xz libgomp1 libgpg-error gzip tar patch 
 Preinstall: lz4
@@ -63,14 +63,14 @@ Keep: gawk sed gcc15 libgcc_s1 binutils perl python3 glibc libxcrypt gcc cpp-15
 Keep: grep ncurses libatomic1 
 Keep: libstdc++6 libgcc_s1 gmp libgfortran5 
 Keep: libasan8 libgomp1 libubsan1 libitm1 liblsan0 liblsan0 libtsan2
-Keep: libelf1 isl
+Keep: libelf isl
 Keep: libxcrypt mpc mpfr gcc-c++ gcc15-c++ perl-rpm-packaging 
-Keep: cpp15 pkgconf pkgconf-m4 attr popt pam libdw1 libarchive
+Keep: cpp15 pkgconf pkgconf-m4 attr popt pam elfutils libarchive
 Keep: libunistring libstdc++6 libstdc++6-devel-gcc15 libstdc++6-locale 
 Keep: libstdc++6-pp libtsan2 libubsan1 libasan8 gcc15-c++ 
 Keep: gcc15-PIE gcc15 cpp15 
 Keep: libgcc_s1 libgfortran5 liblsan0 liblsan0
-Keep: libisl23 libmpc3 libattr1 libgdbm6 gmp libxcrypt libxcrypt-static libxcrypt-devel
+Keep: libisl23 libmpc3 libgdbm6 gmp libxcrypt libxcrypt-static libxcrypt-devel
 Keep: mpfr-devel isl-devel libmpfr6 mpfr-devel gmp-c++ gmp-devel gmp debugedit
 Keep: python-setuptools-wheel libffi python3-setuptools python3-wheel pam pam-devel
 Keep: glib glib-devel ccache gpm jitterentropy openssl
@@ -90,7 +90,6 @@ Order: filesystem:glibc
 Order: filesystem:vim-filesystem
 Order: filesystem:emacs-filesystem
 Order: filesystem:acl
-Order: filesystem:libacl1
 Order: filesystem:attr
 Order: filesystem:tcl
 Order: filesystem:libgcc
