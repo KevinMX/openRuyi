@@ -1,5 +1,6 @@
 # SPDX-FileCopyrightText: (C) 2025 Institute of Software, Chinese Academy of Sciences (ISCAS)
 # SPDX-FileCopyrightText: (C) 2025 openRuyi Project Contributors
+# SPDX-FileContributor: Jingkun Zheng <zhengjingkun@iscas.ac.cn>
 # SPDX-FileContributor: sunyuechi <sunyuechi@iscas.ac.cn>
 # SPDX-FileContributor: misaka00251 <liuxin@iscas.ac.cn>
 #
@@ -15,6 +16,13 @@ VCS:            git:https://github.com/spdk/spdk
 #!RemoteAsset
 Source0:        https://github.com/spdk/spdk/archive/refs/tags/v%{version}.tar.gz
 BuildSystem:    autotools
+
+# Warning: This patch seems abandoned
+# https://github.com/spdk/spdk/issues/2736
+# https://review.spdk.io/c/spdk/spdk/+/14996
+# We're using the patch based on the Alpine one (which looks somehow similar), refreshed to v25.09
+# https://gitlab.alpinelinux.org/alpine/aports/-/blob/master/community/spdk/isal.patch
+Patch0:         2001-with-system-isal.patch
 
 BuildOption(install):  libdir=%{_libdir}
 
@@ -33,10 +41,13 @@ BuildRequires:  python-wheel
 BuildRequires:  python-hatchling
 BuildRequires:  util-linux-devel
 BuildRequires:  patchelf
+BuildRequires:  pkgconfig(libisal)
+BuildRequires:  pkgconfig(libisal_crypto)
 
 Requires:       dpdk
 Requires:       numactl
 Requires:       openssl
+
 # TODO: Enable it when we have these two BuildRequires
 # NVMe over Fabrics
 #Requires:       librdmacm
@@ -87,7 +98,8 @@ export CXX="g++ -fuse-ld=bfd"
     --disable-examples \
     --disable-tests \
     --disable-unit-tests \
-    --with-shared
+    --with-shared \
+    --with-system-isal
 
 %install -p
 find . -name "*.mk" -o -name "Makefile" | xargs sed -i 's/pip install/pip install --no-build-isolation/g'
