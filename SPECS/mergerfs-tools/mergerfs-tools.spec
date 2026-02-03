@@ -1,15 +1,15 @@
 # SPDX-FileCopyrightText: (C) 2025 Institute of Software, Chinese Academy of Sciences (ISCAS)
 # SPDX-FileCopyrightText: (C) 2025 openRuyi Project Contributors
 # SPDX-FileContributor: yyjeqhc <1772413353@qq.com>
+# SPDX-FileContributor: misaka00251 <liuxin@iscas.ac.cn>
 #
 # SPDX-License-Identifier: MulanPSL-2.0
 
 %global commit  80d6c9511da554009415d67e7c0ead1256c1fc41
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commit_date 20230911
 
 Name:           mergerfs-tools
-Version:        %{commit_date}+git%{shortcommit}
+Version:        0+git20260202.%{shortcommit}
 Release:        %autorelease
 Summary:        Optional tools for mergerfs
 License:        ISC
@@ -18,9 +18,10 @@ URL:            https://github.com/trapexit/mergerfs-tools
 Source:         https://github.com/trapexit/mergerfs-tools/archive/%{commit}/mergerfs-tools-%{commit}.tar.gz
 BuildSystem:    autotools
 
-BuildOption(install): PREFIX=%{_prefix}
+BuildOption(install):  PREFIX=%{_prefix}
 
 BuildRequires:  make
+
 Requires:       python3
 Requires:       rsync
 
