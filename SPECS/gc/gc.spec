@@ -10,7 +10,8 @@ Name:           gc
 Version:        8.2.8
 Release:        %autorelease
 Summary:        A garbage collector for C and C++
-License:        BSD and GPLv1+
+# This is a special MIT-style-License
+License:        LicenseRef-GC-MIT
 URL:            http://www.hboehm.info/gc/
 VCS:            git:https://github.com/bdwgc/bdwgc/
 #!RemoteAsset
