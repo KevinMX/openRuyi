@@ -1,5 +1,6 @@
 # SPDX-FileCopyrightText: (C) 2025 Institute of Software, Chinese Academy of Sciences (ISCAS)
 # SPDX-FileCopyrightText: (C) 2025 openRuyi Project Contributors
+# SPDX-FileContributor: Jingkun Zheng <zhengjingkun@iscas.ac.cn>
 # SPDX-FileContributor: Xiang W <wangxiang@iscas.ac.cn>
 # SPDX-FileContributor: misaka00251 <liuxin@iscas.ac.cn>
 #
@@ -13,6 +14,7 @@ License:        BSD-2-Clause
 URL:            https://github.com/riscv-software-src/opensbi
 #!RemoteAsset:  sha256:8293bca3c7507ecf15dd5dfb59fe0f700075974a1f60379f1b6626104c3f0afe
 Source0:        https://github.com/riscv-software-src/opensbi/archive/refs/tags/v%{version}.tar.gz
+ExclusiveArch:  riscv64
 
 BuildRequires:  gcc
 BuildRequires:  make
