@@ -64,7 +64,7 @@ a database.
 %package        devel
 Summary:        Development files for the dbm key/data database library
 License:        GPL-3.0-or-later AND LGPL-2.1-or-later
-Requires:       %{name}-lib%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description    devel
 This package contains all necessary include files and libraries needed
