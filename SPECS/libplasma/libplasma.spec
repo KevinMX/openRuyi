@@ -7,13 +7,12 @@
 %define kf6_version 6.18.0
 %define qt6_version 6.9.0
 
-%define rname libplasma
 # Full Plasma 6 version (e.g. 6.0.0)
 %{!?_plasma6_bugfix: %define _plasma6_bugfix %{version}}
 # Latest ABI-stable Plasma (e.g. 6.0 in KF6, but 6.0.80 in KUF)
 %{!?_plasma6_version: %define _plasma6_version %(echo %{_plasma6_bugfix} | awk -F. '{print $1"."$2}')}
 
-Name:           libplasma6
+Name:           libplasma
 Version:        6.5.5
 Release:        %autorelease
 Summary:        Plasma library and runtime components based upon KF6 and Qt6
@@ -21,7 +20,7 @@ License:        GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            https://www.kde.org
 VCS:            git:https://invent.kde.org/plasma/libplasma
 #!RemoteAsset
-Source:         https://download.kde.org/stable/plasma/%{version}/%{rname}-%{version}.tar.xz
+Source:         https://download.kde.org/stable/plasma/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  doxygen
 BuildRequires:  fdupes
@@ -76,16 +75,11 @@ Plasma library and runtime components based upon KF6 and Qt6
 %package        devel
 Summary:        Plasma library and runtime components
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       plasma6-framework >= %{version}
-Requires:       plasma6-framework-components = %{version}
 Requires:       cmake(KF6Package) >= %{kf6_version}
 Requires:       cmake(KF6WindowSystem) >= %{kf6_version}
 Requires:       cmake(Qt6Gui) >= %{qt6_version}
 Requires:       cmake(Qt6Quick) >= %{qt6_version}
 Conflicts:      plasma-framework-devel
-# Only in KUF before 6.0
-Provides:       plasma6-framework-devel = %{version}
-Obsoletes:      plasma6-framework-devel < %{version}
 
 %description    devel
 Plasma library and runtime components based upon KF6 and Qt6
@@ -98,7 +92,7 @@ BuildArch:      noarch
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %prep
-%autosetup -p1 -n %{rname}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 
 %build
 %cmake_kf6 -DBUILD_QCH:BOOL=TRUE
