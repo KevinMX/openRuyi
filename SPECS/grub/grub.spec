@@ -4,15 +4,6 @@
 #
 # SPDX-License-Identifier: MulanPSL-2.0
 
-# TODO: rewrite this or avoid this if possible - 251
-%define oos_configure() \
-  %global __configure ../configure \
-  %global _configure  ../configure \
-  %configure %** \
-  %global __configure ./configure \
-  %global _configure  ./configure \
-%{nil}
-
 %global grub_platforms riscv64-efi
 %global kernel_module linux
 
@@ -20,43 +11,16 @@
 %global grub_platforms x86_64-efi
 %endif
 
-# If we are building a release candidate, change the %%{Source0}.
-%bcond releasecandidate 1
-%global version 2.14
-%global rc_version 1
-# Suffix for RC builds; use ~ so 2.14~rc1 sorts before 2.14 in RPM NEVR ordering.
-%global _rcsuffix %{nil}
-%if %{with releasecandidate}
-%global _rcsuffix ~rc%{rc_version}
-%endif
-
 Name:           grub
-Version:        %{version}%{?_rcsuffix}
+Version:        2.14
 Release:        %autorelease
 Summary:        Bootloader with support for Linux, Multiboot and more
 License:        GPL-3.0-or-later
 URL:            http://www.gnu.org/software/grub/
 VCS:            git:https://https.git.savannah.gnu.org/git/grub.git
-%if %{without releasecandidate}
-# We can't get savannah working with obs now due to some network issues - 251
 #!RemoteAsset
-Source0:        https://ftpmirror.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
-%else
-#!RemoteAsset:  git+https://git.openruyi.cn/upstream-mirrors/grub.git#grub-2.14-rc1
-#!CreateArchive
-Source0:        grub.tar.gz
-%endif
-%if %{without releasecandidate}
-#!RemoteAsset
-Source1:        https://ftpmirror.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz.sig
-%endif
-# Find this commit hash from bootstrap.conf
-#!RemoteAsset:  git+https://git.openruyi.cn/upstream-mirrors/gnulib.git#9f48fb992a3d7e96610c4ce8be969cff2d61a01b
-#!CreateArchive
-Source2:        gnulib.tar.gz
-Source3:        grub.default
-
-Patch0001:      0001-UPSTREAM-configure-Defer-check-for-mcmodel-large-unt.patch
+Source0:        https://ftpmirror.gnu.org/gnu/grub/grub-%{version}.tar.xz
+Source1:        grub.default
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -69,7 +33,7 @@ BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(fuse3)
 BuildRequires:  pkgconfig(libtasn1)
 BuildRequires:  python3
-BuildRequires:  pkgconfig(liblzma)
+BuildRequires:  xz-devel
 BuildRequires:  fonts-unifont
 BuildRequires:  squashfs-tools
 BuildRequires:  bash-completion
@@ -81,23 +45,9 @@ variety of kernel formats, file systems, computer architectures and
 hardware devices.
 
 %prep
-%if %{without releasecandidate}
 %setup -q -n %{name}-%{version}
-%else
-%setup -q -n %{name}
-%endif
-
-# Unpack gnulib
-mkdir -p gnulib
-tar -C gnulib --strip-components=1 -xf %{SOURCE2}
 
 %conf
-%if %{without releasecandidate}
-autoreconf -fiv
-%else
-./bootstrap --no-git --gnulib-srcdir=./gnulib
-%endif
-
 for plat in %{grub_platforms}; do
     echo "==> configure for $plat"
     src="$PWD"
@@ -129,7 +79,7 @@ for plat in %{grub_platforms}; do
     echo "==> build for $plat"
     pushd "$PWD/../%{name}-%{version}-$plat"
 
-    if [ "$plat" = x86_64-efi ]; then
+    if [ "$plat" = x86_64-efi ] || [ "$plat" = riscv64-efi ]; then
         make -j1 po/
     else
         sed -i -e 's#po docs##' Makefile
@@ -195,9 +145,11 @@ for plat in %{grub_platforms}; do
     cd -
 done
 
-install -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/default/grub
+install -D -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/default/grub
 
-#find_lang %{name} --generate-subpackages
+# TODO: Avoid illegal package names
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/*@*
+%find_lang %{name} --generate-subpackages
 
 %files
 %license COPYING
@@ -260,6 +212,8 @@ install -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/default/grub
 %{_datadir}/%{name}/themes/starfield
 %{_datadir}/%{name}/%{grub_platforms}/grub.efi
 %{bash_completions_dir}/grub*
+%{_datadir}/info/%{name}.info*
+%{_datadir}/info/grub-dev.info*
 
 %changelog
 %{?autochangelog}
