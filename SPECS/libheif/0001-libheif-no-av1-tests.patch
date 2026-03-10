@@ -1,0 +1,48 @@
+diff --git a/tests/region.cc b/tests/region.cc
+index 1db6947..f2ee036 100644
+--- a/tests/region.cc
++++ b/tests/region.cc
+@@ -49,6 +49,10 @@ TEST_CASE("no regions") {
+ }
+ 
+ TEST_CASE("create regions") {
++  if (!heif_have_encoder_for_format(heif_compression_AV1)) {
++    SKIP("Skipping test because AV1 encoder is not available.");
++  }
++
+   struct heif_error err;
+ 
+   heif_image* img;
+@@ -231,6 +235,10 @@ TEST_CASE("create regions") {
+ }
+ 
+ TEST_CASE("create mask region") {
++  if (!heif_have_encoder_for_format(heif_compression_AV1)) {
++    SKIP("Skipping test because AV1 encoder is not available.");
++  }
++
+   struct heif_error err;
+ 
+   heif_image* img;
+@@ -356,6 +364,10 @@ TEST_CASE("create mask region") {
+ 
+ 
+ TEST_CASE("create inline mask region from data") {
++  if (!heif_have_encoder_for_format(heif_compression_AV1)) {
++    SKIP("Skipping test because AV1 encoder is not available.");
++  }
++
+   struct heif_error err;
+ 
+   heif_image* img;
+@@ -451,6 +463,10 @@ TEST_CASE("create inline mask region from data") {
+ 
+ 
+ TEST_CASE("create inline mask region from image") {
++  if (!heif_have_encoder_for_format(heif_compression_AV1)) {
++    SKIP("Skipping test because AV1 encoder is not available.");
++  }
++
+   struct heif_error err;
+ 
+   heif_image* img;
