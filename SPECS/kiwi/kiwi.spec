@@ -25,7 +25,6 @@ Source0:        https://files.pythonhosted.org/packages/source/k/%{name}/%{name}
 %if %{without docs}
 Patch0:         2000-optional-manpage.patch
 %endif
-Patch1:         2001-fix-kiwi-find-path.patch
 
 BuildRequires:  pkgconfig(bash-completion)
 BuildRequires:  dracut
