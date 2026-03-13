@@ -109,7 +109,7 @@ for plat in %{grub_platforms}; do
     CRYPTO_MODULES="luks luks2 gcry_rijndael gcry_sha1 gcry_sha256 gcry_sha512"
 
     # Add efi related modules
-    CD_MODULES="${CD_MODULES} chain efifwsetup efinet read tpm tss2 tpm2_key_protector memdisk tar squash4 xzio"
+    CD_MODULES="${CD_MODULES} chain efifwsetup efinet efi_uga read tpm tss2 tpm2_key_protector memdisk tar squash4 xzio"
     PXE_MODULES="${PXE_MODULES} efinet"
 
     CD_MODULES="$CD_MODULES %{kernel_module}"
