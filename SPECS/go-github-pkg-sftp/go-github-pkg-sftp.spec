@@ -18,6 +18,9 @@ Source0:        https://github.com/pkg/sftp/archive/v%{version}.tar.gz#/%{_name}
 BuildArch:      noarch
 BuildSystem:    golangmodules
 
+# Skip flaky StatVFS test. https://github.com/pkg/sftp/issues/463
+BuildOption(check):  -skip TestRequestStatVFS
+
 BuildRequires:  go
 BuildRequires:  go-rpm-macros
 BuildRequires:  go(github.com/kr/fs)
