@@ -15,7 +15,7 @@ on:
 
 jobs:
   pre-commit:
-    runs-on: ubuntu-latest
+    runs-on: openruyi
     steps:
     - uses: actions/checkout@v3
       with:
