@@ -365,6 +365,9 @@ Requires(postun): kernel-install
 0290-RVCK-riscv-pinctrl-ultrarisc-Implement-pin-configura.patch
 0291-RVCK-riscv-dts-dp1000-add-dts-dtsi-for-Milk-V-Titan-.patch
 0292-REVYSR-pinctrl-ultrarisc-cleanup-probe-remove.patch
+0001-XIANGSHAN-Flush-all-tlb-in-set_pte.patch
+0002-XIANGSHAN-Add-two-sbi-calls.patch
+0003-XIANGSHAN-Add-workaround-to-retry-when-access-fault.patch
 
 %description
 This is a meta-package that installs the core kernel image and modules.
