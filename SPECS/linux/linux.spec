@@ -340,6 +340,7 @@ install -d %{buildroot}%{modpath} %{ksrcpath}
 %make_build run-command %{kernel_make_flags} KBUILD_RUN_COMMAND="$(pwd)/scripts/package/install-extmod-build %{ksrcpath}"
 
 pushd %{buildroot}%{modpath}
+rm -f build source
 ln -sf %{_usrsrc}/kernels/%{kver} build
 ln -sf %{_usrsrc}/kernels/%{kver} source
 popd
