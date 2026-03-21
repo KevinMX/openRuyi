@@ -32,6 +32,8 @@ URL:            https://www.kernel.org/
 Source0:        https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-%{version}.tar.xz
 Source1:        config.%{_arch}
 
+ExclusiveArch:  riscv64
+
 BuildRequires:  gcc
 BuildRequires:  bison
 BuildRequires:  binutils
